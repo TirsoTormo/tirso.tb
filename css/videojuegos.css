@@ -1,0 +1,82 @@
+/* Estilo general de la página */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo oscuro para toda la página */
+    color: #fff;
+}
+
+header, footer {
+    background-color: #333333; /* Fondo oscuro */
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #ff5722;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+/* Estilo para la sección de videojuegos */
+#videojuegos {
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #333333;
+    border-radius: 15px;
+}
+
+#videojuegos h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #ff5722;
+    margin-bottom: 20px;
+}
+
+/* Estilo para cada juego individual */
+.juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.juego img {
+    width: 250px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.juego h3 {
+    font-size: 1.5em;
+    color: #ff9800;
+    margin-top: 10px;
+}
+
+.juego p {
+    font-size: 1.2em;
+    color: #fff;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Ajustes para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    .juego img {
+        width: 200px;
+    }
+
+    .juego h3 {
+        font-size: 1.3em;
+    }
+
+    .juego p {
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="fotos/favicon.png" type="image/x-icon">
+    <title>Esencia Tirso</title>
+    <link rel="stylesheet" href="css/estido-index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+</head>
+<body>
+    <header>
+        <h1>Tirso Tormo <a href="index.html"></a></h1>
+        <p>Mi esencia</p>
+    </header>
+
+    <main>
+        <!-- Sección de "Sobre mí" con mensaje de carga -->
+        <section class="about-me">
+            <h2>Sobre Mí</h2>
+            <div class="loading-content">
+                <p>Cargando...</p>
+            </div>
+            <div class="content" style="display:none;">
+                <p>Hola soy Tirso si esta aquir solo formas me conoces o les lado link que puesto yo jijijji</p>
+                <a href="subpaguinas .html/sombre-mi.html" class="more-info">Más sobre mí</a>
+            </div>
+        </section>
+
+        <!-- Sección de videojuegos con carrusel de palabras -->
+        <section class="videojuegos">
+            <h2>Videojuegos</h2>
+            <div class="videojuegos-marquee">
+                <p>Warhammer 40.000 | Hearts of Iron IV | Tom Clancy's EndWar | Minecraft | Yo-Kay Watch 2 | Titanfall 2</p>
+            </div>
+            <a href="subpaguinas .html/videojuegos.html" class="more-info">Ver más videojuegos</a>
+        </section>
+
+        <!-- Sección de entretenimiento con carrusel de palabras -->
+        <section class="entretenimiento">
+            <h2>Entretenimiento</h2>
+            <div class="entretenimiento-marquee">
+                <p>Cine | Series | Música | Podcast | Lectura</p>
+            </div>
+            <a href="subpaguinas .html/entretenimiento.html" class="more-info">Ver más entretenimiento</a>
+        </section>
+
+        <!-- Sección de gente que me inspira -->
+        <section class="gente-inspiradora">
+            <h2>Personas que me Inspiran</h2>
+            <div class="gente-inspiradora-marquee">
+                <p>Alekay | Hamza | SRfufi | Fernando Miralles | Adrià Solà Pastor | Galder Varas | Brais Moure | Bel | Alex Hormozi</p>
+            </div>
+            <a href="subpaguinas .html/metas.html" class="more-info">Ver más personas</a>
+        </section>
+
+        <!-- Sección de hobbies y metas -->
+        <section class="hobbies">
+            <h2>Hobbies y Metas</h2>
+            <div class="hobbies-marquee">
+                <p>Gimnasio | Programación | Videojuegos | Leer | Desarrollo personal | Metas</p>
+            </div>
+            <a href="subpaguinas .html/hobbies.html" class="more-info">Ver más sobre mis hobbies</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Tirso Tormo. Todos los derechos reservados a nadie jiji.</p>
+    </footer>
+
+    <script>
+        // Simulación de carga
+        window.onload = function() {
+            setTimeout(function() {
+                document.querySelector('.loading-content').style.display = 'none';
+                document.querySelector('.content').style.display = 'block';
+            }, 1500); // 1.5 segundos de carga
+        }
+    </script>
+</body>
+</html>
