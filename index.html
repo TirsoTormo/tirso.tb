@@ -192,13 +192,27 @@
       transform: translateY(0);
     }
 
-    /* Estilo para el contenedor del vídeo */
-    .video-wrapper {
-      text-align: center; /* Centra el iframe y el título si fuera inline */
-      padding: 2rem 0;   /* Espacio vertical */
-    }
-    /* El título h2 ya tiene text-align: center por su clase .section-title */
-    /* El iframe se centrará por el text-align: center de .video-wrapper */
+    .button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-link {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-green-light);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: var(--primary-green-lighter);
+}
+
 
   </style>
 </head>
@@ -209,9 +223,10 @@
       <img src="fotos/logo.jpg" alt="Logo de Tirso CORE" class="logo mb-6">
       <h1 class="title-big mb-4">TIRSO CORE</h1>
       <p class="mb-6 text-lg">Descubre mis gustos más ocultos</p>
-      <a href="#gustos" class="px-8 py-4 bg-green-600 hover:bg-green-700 rounded transition">VER TODO</a>
-      <a> <a/>
-      <a href="sistema.html" class="px-8 py-4 bg-green-600 hover:bg-green-700 rounded transition">TIRSO OS</a>
+<div class="button-group">
+  <a href="#gustos" class="btn-link">VER TODO</a>
+  <a href="sistema.html" class="btn-link">TIRSO OS</a>
+</div>
     </div>
   </section>
     
