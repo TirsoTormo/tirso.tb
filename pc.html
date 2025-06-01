@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnología - Core Tirso</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #181c1b;
+            --card-bg: #232a27;
+            --primary: #00ff90;
+            --secondary: #00c36b;
+            --text: #e0ffe0;
+            --accent: #fff700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--card-bg);
+            color: var(--primary);
+            padding: 1rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 2px solid var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 1rem 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .card p {
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .tech-list li {
+            background: var(--bg-dark);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-microchip"></i> Tecnología</h1>
+            <p>Mi pasión por la tecnología y la innovación</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <h3>Sistemas Operativos</h3>
+                <p>Los SO que más me interesan:</p>
+                <ul class="tech-list">
+                    <li>🖥️ Windows 11 (modificado)</li>
+                    <li>🐧 Linux (varias distros)</li>
+                    <li>🔧 Sistemas personalizados</li>
+                    <li>⚙️ Optimización de rendimiento</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Hardware</h3>
+                <p>Componentes que me fascinan:</p>
+                <ul class="tech-list">
+                    <li>🔥 CPU</li>
+                    <li>🎮 Tarjetas gráficas</li>
+                    <li>💾 Almacenamiento SSD</li>
+                    <li>🧠 Memoria RAM</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Tendencias Tech</h3>
+                <p>Lo que sigo de cerca:</p>
+                <ul class="tech-list">
+                    <li>🤖 Inteligencia Artificial</li>
+                    <li>☁️ Cloud Computing</li>
+                    <li>🔐 Ciberseguridad</li>
+                    <li>📱 Nuevas tecnologías móviles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

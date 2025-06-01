@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars - Core Tirso</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #181c1b;
+            --card-bg: #232a27;
+            --primary: #00ff90;
+            --secondary: #00c36b;
+            --text: #e0ffe0;
+            --accent: #fff700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--card-bg);
+            color: var(--primary);
+            padding: 1rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 2px solid var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 1rem 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid var(--secondary);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .section h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .section h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .section p {
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .list li {
+            background: var(--bg-dark);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-galactic-republic"></i> Star Wars - Cosas Tops</h1>
+            <p>Lo mejor de la galaxia muy, muy lejana</p>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-empire"></i> Imperios Tops</h2>
+            <h3>El Imperio Galáctico</h3>
+            <p>El clásico imperio del lado oscuro:</p>
+            <ul class="list">
+                <li><i class="fas fa-star"></i> Poder militar abrumador</li>
+                <li><i class="fas fa-star"></i> Iconografía imponente</li>
+                <li><i class="fas fa-star"></i> Darth Vader</li>
+            </ul>
+
+            <h3>Separatistas</h3>
+            <p>Son todo robots:</p>
+            <ul class="list">
+                <li><i class="fas fa-star"></i> Robots que se desperian entre si</li>
+                <li><i class="fas fa-star"></i> Líderes deficintes</li>
+                <li><i class="fas fa-star"></i> Conde Ducu y Gribus</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-fighter-jet"></i> Tanques Tops</h2>
+            <h3>AT-AT</h3>
+            <p>El caminante blindado icónico:</p>
+            <ul class="list">
+                <li><i class="fas fa-star"></i> Imponente presencia</li>
+                <li><i class="fas fa-star"></i> Gran poder de fuego</li>
+                <li><i class="fas fa-star"></i> Difícil de derribar</li>
+            </ul>
+
+            <h3>AT-M6</h3>
+            <p>El caminante pesado de la Primera Orden:</p>
+            <ul class="list">
+                <li><i class="fas fa-star"></i> Aún más grande y blindado</li>
+                <li><i class="fas fa-star"></i> Cañón masivo</li>
+                <li><i class="fas fa-star"></i> Amenaza imparable</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

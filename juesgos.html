@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming - Core Tirso</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #181c1b;
+            --card-bg: #232a27;
+            --primary: #00ff90;
+            --secondary: #00c36b;
+            --text: #e0ffe0;
+            --accent: #fff700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--card-bg);
+            color: var(--primary);
+            padding: 1rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 2px solid var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 1rem 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .card p {
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .game-list li {
+            background: var(--bg-dark);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Volver
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-gamepad"></i> Gaming</h1>
+            <p>Mi pasión por los videojuegos</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <h3>Juegos Favoritos</h3>
+                <p>Estos son algunos de los juegos que más disfruto:</p>
+                <ul class="game-list">
+                    <li>🎮 HOI4</li>
+                    <li>🎮 Fornite</li>
+                    <li>🎮 Minecraft</li>
+                    <li>🎮 Titanfall 2</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Setup Gaming</h3>
+                <p>Mi PC:</p>
+                <ul class="game-list">
+                    <li>💻 RTX 2050</li>
+                    <li>⚡️ 16GB RAM</li>
+                    <li>⌨️ Rycen 5 7535HS</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Géneros Favoritos</h3>
+                <p>Los tipos de juegos que más me gustan:</p>
+                <ul class="game-list">
+                    <li>🎯 FPS (First Person Shooter)</li>
+                    <li>🏗️ Gestion</li>
+                    <li>⚔️ Strateguia</li>
+                    <li>🏃 Battle Royale</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
