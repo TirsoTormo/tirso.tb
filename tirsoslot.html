@@ -1,1 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TirsoSlots: SLOTS EXPANDED</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505; --panel: #0a0a0a; --border: #222;
+            --accent: #3b82f6; --green: #22c55e; --purple: #d946ef;
+            --gold: #fbbf24; --red: #ef4444; --orange: #f97316;
+            --text: #fff; --text-dim: #888;
+        }
 
+        * { box-sizing: border-box; user-select: none; }
+        body { 
+            margin: 0; height: 100vh; display: flex; 
+            background: var(--bg); color: var(--text); 
+            font-family: 'Inter', sans-serif; overflow: hidden; 
+            transition: background 0.3s;
+        }
+
+        /* --- EFECTOS FIEBRE --- */
+        body.fever-mode-global { animation: bgPulse 0.5s infinite alternate; }
+        @keyframes bgPulse {
+            from { box-shadow: inset 0 0 50px rgba(255, 69, 0, 0.1); background: #1a0505; }
+            to { box-shadow: inset 0 0 150px rgba(255, 69, 0, 0.4); background: #2a0a0a; }
+        }
+        .fever-mode-global aside { border-right: 2px solid var(--orange); box-shadow: 10px 0 50px rgba(255, 69, 0, 0.3); }
+        .fever-mode-global .btn-clicker {
+            background: linear-gradient(135deg, #ff4d4d, #ff9900);
+            box-shadow: 0 0 25px #ff4500;
+            animation: shake 0.5s infinite;
+            border: 2px solid #fff;
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* --- BARRA LATERAL --- */
+        aside { 
+            width: 340px; background: var(--panel); border-right: 1px solid var(--border); 
+            padding: 20px; display: flex; flex-direction: column; gap: 15px; 
+            z-index: 50; box-shadow: 5px 0 30px #000; position: relative;
+        }
+        
+        .brand { font-family: 'JetBrains Mono'; font-weight: 900; font-size: 1.6rem; color: #fff; text-align: center; margin-bottom: 5px; letter-spacing: -1px; }
+        .brand span { color: var(--accent); }
+        .brand small { display: block; font-size: 0.7rem; color: var(--gold); letter-spacing: 4px; margin-top: 2px; }
+        
+        .stat-card { background: #111; border: 1px solid var(--border); padding: 15px; border-radius: 12px; }
+        .label { font-size: 0.7rem; color: var(--text-dim); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+        .value { font-family: 'JetBrains Mono'; font-size: 1.6rem; font-weight: 700; }
+        .money { color: var(--green); text-shadow: 0 0 10px rgba(34, 197, 94, 0.2); }
+
+        /* BARRAS DE PROGRESO */
+        .fever-container { border-color: #333; transition: 0.3s; }
+        .fever-bar-bg { width: 100%; height: 10px; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #333; margin-top: 5px; }
+        .fever-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--orange)); width: 0%; transition: width 0.3s; }
+        
+        .xp-bar-bg { width: 100%; height: 6px; background: #000; margin-top: 5px; border-radius: 4px; overflow: hidden; }
+        .xp-bar-fill { height: 100%; background: linear-gradient(90deg, #d946ef, #8b5cf6); width: 0%; transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        /* BOTONES */
+        .btn-clicker {
+            width: 100%; padding: 20px; background: linear-gradient(135deg, var(--accent), #2563eb);
+            border: none; color: white; font-weight: 900; border-radius: 12px; cursor: pointer;
+            transition: all 0.1s; display: flex; justify-content: space-between; align-items: center; 
+            margin-top: auto; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); font-size: 1.1rem;
+        }
+        .btn-clicker:active { transform: scale(0.98); }
+        
+        .btn-settings-full {
+            width: 100%; background: #181818; border: 1px solid #333; color: #888;
+            padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-settings-full:hover { background: #222; color: #fff; }
+
+        /* --- ZONA PRINCIPAL --- */
+        main { flex-grow: 1; display: flex; flex-direction: column; background: radial-gradient(circle at center, #161616 0%, #000 100%); }
+        header { height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        
+        .tabs { display: flex; gap: 10px; background: #1a1a1a; padding: 5px; border-radius: 8px; }
+        .tab { padding: 8px 20px; background: transparent; border: none; color: var(--text-dim); font-weight: 700; cursor: pointer; border-radius: 6px; transition: 0.2s; }
+        .tab:hover { color: #fff; }
+        .tab.active { background: var(--accent); color: #fff; }
+
+        .view { display: none; flex-grow: 1; overflow-y: auto; padding: 30px; padding-bottom: 150px; }
+        .view.active { display: block; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        
+        /* TARJETAS DE JUEGO */
+        .card {
+            background: #111; border: 1px solid var(--border); border-radius: 12px; padding: 15px;
+            position: relative; transition: all 0.2s; display: flex; flex-direction: column;
+        }
+        .card:hover { border-color: var(--accent); background: #161616; transform: translateY(-2px); }
+        
+        /* COLORES Y ETIQUETAS */
+        .card.illegal { border-color: #3f1a1a; background: linear-gradient(180deg, #1a0a0a, #0a0a0a); }
+        .card.illegal:hover { border-color: var(--red); box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); }
+        .card.legal { border-color: #0f2615; background: linear-gradient(180deg, #0a1a0f, #0a0a0a); }
+        .card.legal:hover { border-color: var(--green); }
+
+        .type-badge { 
+            position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 4px; 
+            font-size: 0.7rem; font-weight: 900; letter-spacing: 1px;
+        }
+        .bg-legal { background: rgba(34, 197, 94, 0.2); color: var(--green); border: 1px solid var(--green); }
+        .bg-illegal { background: rgba(239, 68, 68, 0.2); color: var(--red); border: 1px solid var(--red); }
+        .bg-count { background: #333; color: #fff; top: auto; bottom: 15px; font-size: 0.8rem; }
+        .bg-level { background: rgba(59, 130, 246, 0.2); color: var(--accent); border: 1px solid var(--accent); }
+
+        .screen {
+            background: #000; height: 60px; border-radius: 6px; border: 1px solid #333; margin: 10px 0;
+            display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-size: 1.8rem;
+            box-shadow: inset 0 0 10px #000;
+        }
+        .reel-text { transition: 0.1s; }
+        .reel-text.blur { filter: blur(4px); transform: scaleY(1.4); opacity: 0.7; }
+
+        .btn-buy {
+            width: 100%; background: #222; border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 8px;
+            cursor: pointer; font-weight: 700; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; margin-top: auto;
+        }
+        .btn-buy:hover { background: #333; }
+        .btn-buy.affordable { border-color: var(--green); background: rgba(34, 197, 94, 0.1); }
+        
+        /* MODAL Y TEXTO FLOTANTE */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #1a1a1a; border: 1px solid var(--border); padding: 30px; border-radius: 12px; width: 450px; text-align: center; }
+        textarea { width: 100%; height: 80px; background: #000; color: var(--green); border: 1px solid #333; margin: 10px 0; padding: 10px; resize: none; border-radius: 6px; }
+        
+        @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-50px) scale(1.2); opacity: 0; } }
+        .float-text { position: absolute; font-weight: 900; font-size: 1.4rem; pointer-events: none; animation: floatUp 0.8s ease-out forwards; z-index: 9999; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+    </style>
+</head>
+<body onclick="AudioSys.init()">
+
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal">
+            <h2 style="margin-top:0">⚙️ GESTIÓN DE DATOS</h2>
+            <button class="btn-buy" onclick="Game.exportData()">📤 COPIAR CÓDIGO</button>
+            <textarea id="ioText" placeholder="Pega tu código aquí..."></textarea>
+            <button class="btn-buy" onclick="Game.importData()">📥 CARGAR PARTIDA</button>
+            <div style="margin-top:20px; border-top:1px solid #333; padding-top:20px;">
+                <button class="btn-buy" style="border-color:var(--red); color:var(--red); background:rgba(239, 68, 68, 0.1);" onclick="Game.hardReset()">⚠️ RESETEAR TODO</button>
+            </div>
+            <button class="btn-buy" style="margin-top:20px; justify-content:center; background:#333" onclick="document.getElementById('settingsModal').classList.remove('active')">CERRAR</button>
+        </div>
+    </div>
+
+    <aside>
+        <div class="brand">TIRSO<span>SLOTS</span> <small>SLOTS EXPANDED</small></div>
+
+        <div class="stat-card fever-container">
+            <div class="fever-text" style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.8rem">
+                <span id="feverTitle">🔥 FIEBRE</span> <span id="feverText">0 / 50</span>
+            </div>
+            <div class="fever-bar-bg"><div class="fever-bar-fill" id="feverFill"></div></div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label" style="display:flex; justify-content:space-between">
+                <span>NIVEL <span id="uiLevel" style="color:#fff">1</span></span>
+                <span style="color:var(--purple)">Suerte +<span id="uiLuck">0</span>%</span>
+            </div>
+            <div class="xp-bar-bg"><div class="xp-bar-fill" id="xpFill"></div></div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">CAPITAL</div>
+            <div class="value money">$<span id="uiMoney">0</span></div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">INGRESOS NETOS</div>
+            <div class="value">+$<span id="uiPassive">0</span>/s</div>
+        </div>
+
+        <button class="btn-clicker" onmousedown="Game.manualClick(event)">
+            <span>💎 TRABAJAR</span>
+            <span style="opacity:0.9; font-size:0.9rem">+$<span id="uiClick">10</span></span>
+        </button>
+
+        <button class="btn-settings-full" onclick="document.getElementById('settingsModal').classList.add('active')">⚙️ AJUSTES</button>
+    </aside>
+
+    <main>
+        <header>
+            <div style="font-weight:900; font-size:1.2rem; color:#fff">CASINO PRINCIPAL</div>
+            <div class="tabs">
+                <button class="tab active" onclick="UI.switchTab('slots', this)">🎰 SLOTS</button>
+                <button class="tab" onclick="UI.switchTab('passive', this)">🏢 NEGOCIOS</button>
+                <button class="tab" onclick="UI.switchTab('upgrades', this)">⚡ MEJORAS</button>
+            </div>
+        </header>
+
+        <div id="tab-slots" class="view active"><div class="grid" id="slotsGrid"></div></div>
+        <div id="tab-passive" class="view"><div class="grid" id="passiveGrid"></div></div>
+        <div id="tab-upgrades" class="view"><div class="grid" id="upgradesGrid"></div></div>
+    </main>
+
+    <script>
+        // === CONFIGURACIÓN REAJUSTADA ===
+        const CONFIG = {
+            slots: [
+                // Early Game
+                { id: 0, name: "Fruta Retro", cost: 100, payout: 25, speed: 2000, icon: "🍒" },
+                { id: 1, name: "Dados Neon", cost: 1200, payout: 250, speed: 1800, icon: "🎲" },
+                { id: 2, name: "Barra Oro", cost: 15000, payout: 1800, speed: 1500, icon: "💰" },
+                
+                // Mid Game
+                { id: 3, name: "Diamante", cost: 250000, payout: 15000, speed: 1300, icon: "💎" },
+                { id: 4, name: "Crypto Farm", cost: 4000000, payout: 150000, speed: 1100, icon: "₿" },
+                { id: 5, name: "Caja Fuerte", cost: 75000000, payout: 2000000, speed: 1000, icon: "🏦" },
+
+                // End Game (NUEVAS)
+                { id: 6, name: "Plataforma Petróleo", cost: 2500000000, payout: 60000000, speed: 900, icon: "🛢️" }, // 2.5B
+                { id: 7, name: "Láser Alien", cost: 150000000000, payout: 3000000000, speed: 800, icon: "👽" }, // 150B
+                { id: 8, name: "Motor de Realidad", cost: 10000000000000, payout: 200000000000, speed: 600, icon: "🌀" } // 10T
+            ],
+            upgrades: [
+                { id: 'speed', name: "Turbo Motor", desc: "-10% Tiempo de giro", cost: 1000, icon: "⚙️" },
+                { id: 'luck', name: "Algoritmo Suerte", desc: "+2% Probabilidad Slots", cost: 5000, icon: "🍀" },
+                { id: 'click', name: "Ratón Gaming", desc: "+50% Valor Clic Manual", cost: 2000, icon: "👆" },
+                { id: 'marketing', name: "Campaña Ads", desc: "+10% Ingresos Legales", cost: 15000, icon: "📢" },
+                { id: 'lawyer', name: "Abogado Saul", desc: "+10% Ingresos Ilegales", cost: 50000, icon: "⚖️" }
+            ],
+            passive: [
+                { id: 0, type: "legal", name: "Vending", cost: 500, income: 10, icon: "🥤" },
+                { id: 1, type: "legal", name: "Arcade", cost: 5000, income: 80, icon: "🕹️" },
+                { id: 2, type: "legal", name: "Inmobiliaria", cost: 150000, income: 1500, icon: "🏙️" },
+                { id: 3, type: "illegal", name: "Póker Sótano", cost: 25000, income: 450, icon: "🃏" },
+                { id: 4, type: "illegal", name: "Contrabando", cost: 600000, income: 6500, icon: "📦" },
+                { id: 5, type: "illegal", name: "Lavado Dinero", cost: 15000000, income: 150000, icon: "🧼" }
+            ]
+        };
+
+        // === MOTOR ===
+        const Game = {
+            data: {
+                money: 0, totalEarned: 0, level: 1,
+                machines: {}, 
+                upgrades: { speed:0, luck:0, click:0, marketing:0, lawyer:0 },
+                passives: {}, 
+                // FIEBRE: Empieza más difícil (50 en vez de 20)
+                fever: { current: 0, max: 50, active: false, end: 0 },
+                lastSave: Date.now()
+            },
+
+            init() {
+                this.load();
+                this.renderAll();
+                requestAnimationFrame(() => this.loop());
+                setInterval(() => this.passiveLoop(), 1000);
+                setInterval(() => this.save(), 10000);
+            },
+
+            loop() {
+                const now = Date.now();
+                // Fiebre
+                if (this.data.fever.active) {
+                    document.body.classList.add('fever-mode-global');
+                    if (now > this.data.fever.end) {
+                        this.data.fever.active = false;
+                        document.body.classList.remove('fever-mode-global');
+                        this.data.fever.current = 0;
+                        // La fiebre se vuelve más difícil de conseguir cada vez
+                        this.data.fever.max = Math.floor(this.data.fever.max * 1.5);
+                    }
+                }
+
+                // Slots Automáticas
+                CONFIG.slots.forEach(t => {
+                    const m = this.data.machines[t.id];
+                    if (m && m.count > 0) {
+                        let speed = t.speed * Math.pow(0.9, this.data.upgrades.speed);
+                        if(this.data.fever.active) speed /= 3; 
+                        if(speed < 100) speed = 100;
+                        
+                        if (!m.nextSpin) m.nextSpin = now + speed;
+                        if (now >= m.nextSpin && !m.spinning) this.spin(t.id, t, speed);
+                    }
+                });
+                
+                UI.update();
+                requestAnimationFrame(() => this.loop());
+            },
+
+            spin(id, type, speed) {
+                const m = this.data.machines[id];
+                m.spinning = true;
+                const el = document.getElementById(`slot-${id}`);
+                if (el) { 
+                    el.querySelector('.reel-text').innerText = this.randSym(); 
+                    el.querySelector('.reel-text').classList.add('blur'); 
+                }
+                setTimeout(() => this.resolve(id, type), speed);
+            },
+
+            resolve(id, type) {
+                const m = this.data.machines[id];
+                m.spinning = false; 
+                m.nextSpin = null;
+                
+                const el = document.getElementById(`slot-${id}`);
+                if (el) { 
+                    el.querySelector('.reel-text').classList.remove('blur'); 
+                    el.querySelector('.reel-text').innerText = this.randSym(true); 
+                }
+
+                if (!this.data.fever.active) {
+                    this.data.fever.current += m.count;
+                    if (this.data.fever.current >= this.data.fever.max) {
+                        this.data.fever.active = true;
+                        this.data.fever.end = Date.now() + 10000;
+                        AudioSys.play('win');
+                    }
+                }
+
+                let chance = 0.3 + (this.data.level * 0.01) + (this.data.upgrades.luck * 0.02);
+                if (Math.random() < chance) {
+                    let mult = this.data.fever.active ? 5 : 1;
+                    const win = Math.floor(type.payout * m.level * m.count * mult);
+                    this.addMoney(win);
+                    if (el) { 
+                        UI.floatText(el, `+$${UI.fmt(win)}`, this.data.fever.active ? 'var(--orange)' : 'var(--green)'); 
+                        AudioSys.play('win'); 
+                    }
+                }
+            },
+
+            passiveLoop() {
+                let inc = 0;
+                CONFIG.passive.forEach(p => {
+                    let base = (this.data.passives[p.id] || 0) * p.income;
+                    if (p.type === 'legal') base *= (1 + this.data.upgrades.marketing * 0.1);
+                    if (p.type === 'illegal') base *= (1 + this.data.upgrades.lawyer * 0.1);
+                    inc += base;
+                });
+                if (inc > 0) this.addMoney(inc);
+            },
+
+            manualClick(e) {
+                let val = 10 * (1 + this.data.level * 0.1) * (1 + this.data.upgrades.click * 0.5);
+                if(this.data.fever.active) val *= 2;
+                this.addMoney(val);
+                UI.floatText(e.target, `+$${UI.fmt(val)}`, "#fff", true);
+                AudioSys.play('click');
+            },
+
+            addMoney(n) { this.data.money += n; this.data.totalEarned += n; this.checkLevel(); },
+            checkLevel() {
+                const nextLvlXP = 1000 * Math.pow(1.5, this.data.level - 1);
+                if (this.data.totalEarned >= nextLvlXP) this.data.level++;
+            },
+
+            buy(cat, id) {
+                if (cat === 'slot') {
+                    const t = CONFIG.slots[id];
+                    const m = this.data.machines[id] || {count:0, level:1};
+                    const cost = Math.floor(t.cost * Math.pow(1.3, m.count));
+                    if (this.data.money >= cost) { this.data.money -= cost; m.count++; this.data.machines[id] = m; this.renderAll(); AudioSys.play('click'); }
+                } else if (cat === 'upgradeSlot') {
+                    const m = this.data.machines[id]; const cost = m.level * 500 * (id + 1);
+                    if (this.data.money >= cost) { this.data.money -= cost; m.level++; this.renderAll(); AudioSys.play('click'); }
+                } else if (cat === 'upgrade') {
+                    const u = CONFIG.upgrades.find(x=>x.id===id); const cost = Math.floor(u.cost * Math.pow(1.5, this.data.upgrades[id]));
+                    if (this.data.money >= cost) { this.data.money -= cost; this.data.upgrades[id]++; this.renderAll(); AudioSys.play('click'); }
+                } else if (cat === 'passive') {
+                    const p = CONFIG.passive[id]; const cost = Math.floor(p.cost * Math.pow(1.25, (this.data.passives[id]||0)));
+                    if (this.data.money >= cost) { this.data.money -= cost; this.data.passives[id] = (this.data.passives[id]||0) + 1; this.renderAll(); UI.update(); AudioSys.play('click'); }
+                }
+            },
+
+            save() { localStorage.setItem('TirsoV3', JSON.stringify(this.data)); },
+            load() { 
+                try {
+                    const s = localStorage.getItem('TirsoV3'); 
+                    if(s) this.data = JSON.parse(s);
+                    if(!this.data.machines) this.data.machines = {};
+                    if(!this.data.upgrades) this.data.upgrades = { speed:0, luck:0, click:0, marketing:0, lawyer:0 };
+                    if(!this.data.passives) this.data.passives = {};
+                    // Ajuste para versión antigua: si el max de fiebre es muy bajo, lo subimos a 50
+                    if(!this.data.fever) this.data.fever = { current: 0, max: 50, active: false, end: 0 };
+                    if(this.data.fever.max < 50) this.data.fever.max = 50;
+                } catch(e) {}
+            },
+            exportData() { document.getElementById('ioText').value = btoa(JSON.stringify(this.data)); },
+            importData() { try { this.data = JSON.parse(atob(document.getElementById('ioText').value)); this.save(); location.reload(); } catch(e){ alert("Código mal"); } },
+            hardReset() { localStorage.removeItem('TirsoV3'); location.reload(); },
+            
+            randSym(f) { const s=['🍒','7️⃣','💎','🔔','🍋']; return f ? `${s[Math.floor(Math.random()*5)]} ${s[Math.floor(Math.random()*5)]} ${s[Math.floor(Math.random()*5)]}` : s[Math.floor(Math.random()*5)]; },
+
+            renderAll() {
+                // RENDER SLOTS
+                const grid = document.getElementById('slotsGrid'); grid.innerHTML = "";
+                CONFIG.slots.forEach(t => {
+                    const m = this.data.machines[t.id] || {count:0, level:1};
+                    const cost = Math.floor(t.cost * Math.pow(1.3, m.count));
+                    const uCost = m.level * 500 * (t.id + 1);
+                    
+                    grid.innerHTML += `
+                        <div class="card" id="slot-${t.id}">
+                            ${m.count > 0 ? `<div class="type-badge bg-count">x${m.count}</div>` : ''}
+                            <div style="font-weight:bold; margin-bottom:5px">${t.icon} ${t.name} <small>Nv${m.level}</small></div>
+                            <div class="screen"><span class="reel-text">---</span></div>
+                            <div style="display:flex; gap:5px; margin-top:auto">
+                                <button class="btn-buy" id="buy-slot-${t.id}" onclick="Game.buy('slot', ${t.id})">
+                                    <span>${m.count>0?'+1':'COMPRAR'}</span> <small>$${UI.fmt(cost)}</small>
+                                </button>
+                                ${m.count>0 ? `<button class="btn-buy" id="upg-slot-${t.id}" onclick="Game.buy('upgradeSlot', ${t.id})">UPG <small>$${UI.fmt(uCost)}</small></button>` : ''}
+                            </div>
+                        </div>`;
+                });
+
+                // RENDER PASSIVE
+                const pasGrid = document.getElementById('passiveGrid'); pasGrid.innerHTML = "";
+                CONFIG.passive.forEach(p => {
+                    const cnt = this.data.passives[p.id] || 0;
+                    const cost = Math.floor(p.cost * Math.pow(1.25, cnt));
+                    const isLegal = p.type === 'legal';
+                    pasGrid.innerHTML += `
+                        <div class="card ${isLegal ? 'legal' : 'illegal'}">
+                            <div class="type-badge ${isLegal ? 'bg-legal' : 'bg-illegal'}">${isLegal ? 'LEGAL' : 'ILEGAL'}</div>
+                            ${cnt > 0 ? `<div class="type-badge bg-count" style="right:auto; left:10px">Propiedad: ${cnt}</div>` : ''}
+                            
+                            <div style="font-weight:bold; font-size:1.1rem; margin-top:15px">${p.icon} ${p.name}</div>
+                            <div style="font-size:0.9rem; color:${isLegal ? 'var(--green)' : 'var(--red)'}; margin-bottom:10px">+$${UI.fmt(p.income)}/s</div>
+                            
+                            <button class="btn-buy" id="buy-pas-${p.id}" onclick="Game.buy('passive', ${p.id})">
+                                EXPANDIR <small>$${UI.fmt(cost)}</small>
+                            </button>
+                        </div>`;
+                });
+
+                // RENDER MEJORAS
+                const upGrid = document.getElementById('upgradesGrid'); upGrid.innerHTML = "";
+                CONFIG.upgrades.forEach(u => {
+                    const lvl = this.data.upgrades[u.id] || 0;
+                    const cost = Math.floor(u.cost * Math.pow(1.5, lvl));
+                    upGrid.innerHTML += `
+                        <div class="card">
+                            <div class="type-badge bg-level">Nv ${lvl}</div>
+                            <div style="font-weight:bold">${u.icon} ${u.name}</div>
+                            <div style="font-size:0.8rem; color:#888; margin-bottom:10px">${u.desc}</div>
+                            <button class="btn-buy" id="buy-upg-${u.id}" onclick="Game.buy('upgrade', '${u.id}')">
+                                MEJORAR <small>$${UI.fmt(cost)}</small>
+                            </button>
+                        </div>`;
+                });
+            }
+        };
+
+        const AudioSys = {
+            ctx: null,
+            init() { if(!this.ctx) this.ctx = new (window.AudioContext||window.webkitAudioContext)(); if(this.ctx.state==='suspended')this.ctx.resume(); },
+            play(t) { 
+                if(!this.ctx)return; const o=this.ctx.createOscillator(), g=this.ctx.createGain();
+                o.connect(g); g.connect(this.ctx.destination); const n=this.ctx.currentTime;
+                if(t==='click'){o.frequency.setValueAtTime(600, n); g.gain.setValueAtTime(0.05, n); g.gain.linearRampToValueAtTime(0, n+0.1); o.start(n); o.stop(n+0.1);}
+                else if(t==='win'){o.type='triangle';o.frequency.setValueAtTime(400, n); g.gain.setValueAtTime(0.1, n); g.gain.linearRampToValueAtTime(0, n+0.3); o.start(n); o.stop(n+0.3);}
+            }
+        };
+
+        const UI = {
+            fmt(n) { 
+                if(n>=1e12)return(n/1e12).toFixed(2)+'T'; // Trillones
+                if(n>=1e9)return(n/1e9).toFixed(2)+'B'; // Billones
+                if(n>=1e6)return(n/1e6).toFixed(2)+'M'; // Millones
+                if(n>=1e3)return(n/1e3).toFixed(1)+'k'; // Miles
+                return Math.floor(n); 
+            },
+            switchTab(id, btn) { document.querySelectorAll('.view').forEach(e=>e.classList.remove('active')); document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active')); document.getElementById('tab-'+id).classList.add('active'); btn.classList.add('active'); },
+            floatText(el, txt, c, m) { 
+                const d=document.createElement('div'); d.className='float-text'; d.innerText=txt; d.style.color=c; 
+                const r=el.getBoundingClientRect(); d.style.left=(m?el.offsetLeft+Math.random()*20:r.left+r.width/2)+'px'; d.style.top=(m?el.offsetTop:r.top)+'px'; 
+                document.body.appendChild(d); setTimeout(()=>d.remove(), 1000); 
+            },
+            update() {
+                document.getElementById('uiMoney').innerText = this.fmt(Game.data.money);
+                document.getElementById('uiLevel').innerText = Game.data.level;
+                document.getElementById('uiLuck').innerText = Game.data.level;
+                
+                let passiveInc = 0;
+                CONFIG.passive.forEach(p => {
+                    let base = (Game.data.passives[p.id] || 0) * p.income;
+                    if (p.type === 'legal') base *= (1 + Game.data.upgrades.marketing * 0.1);
+                    if (p.type === 'illegal') base *= (1 + Game.data.upgrades.lawyer * 0.1);
+                    passiveInc += base;
+                });
+                document.getElementById('uiPassive').innerText = this.fmt(passiveInc);
+                document.getElementById('uiClick').innerText = this.fmt(10 * (1 + Game.data.level * 0.1) * (1 + Game.data.upgrades.click * 0.5));
+                
+                const prevLvlXP = 1000 * Math.pow(1.5, Game.data.level - 2) || 0;
+                const nextLvlXP = 1000 * Math.pow(1.5, Game.data.level - 1);
+                let percent = ((Game.data.totalEarned - prevLvlXP) / (nextLvlXP - prevLvlXP)) * 100;
+                if(percent>100) percent=100; if(percent<0) percent=0;
+                document.getElementById('xpFill').style.width = percent + "%";
+
+                const f = Game.data.fever;
+                if (f.active) {
+                    const left = Math.ceil((f.end - Date.now())/1000);
+                    document.getElementById('feverTitle').innerText = "🔥 ¡FIEBRE! 🔥";
+                    document.getElementById('feverTitle').style.color = "var(--orange)";
+                    document.getElementById('feverText').innerText = left + "s";
+                    document.getElementById('feverFill').style.width = '100%';
+                    document.querySelector('.fever-container').classList.add('fever-active');
+                } else {
+                    document.getElementById('feverTitle').innerText = "FIEBRE";
+                    document.getElementById('feverTitle').style.color = "var(--text-dim)";
+                    document.getElementById('feverText').innerText = `${f.current}/${f.max}`;
+                    document.getElementById('feverFill').style.width = Math.min(100, (f.current/f.max)*100) + "%";
+                    document.querySelector('.fever-container').classList.remove('fever-active');
+                }
+
+                const check = (id, cost) => { const b=document.getElementById(id); if(b){ if(Game.data.money>=cost) b.classList.add('affordable'); else b.classList.remove('affordable'); } };
+                
+                CONFIG.slots.forEach(t => {
+                    const m = Game.data.machines[t.id] || {count:0, level:1};
+                    check(`buy-slot-${t.id}`, Math.floor(t.cost * Math.pow(1.3, m.count)));
+                    check(`upg-slot-${t.id}`, m.level * 500 * (t.id + 1));
+                });
+                CONFIG.passive.forEach(p => check(`buy-pas-${p.id}`, Math.floor(p.cost * Math.pow(1.25, (Game.data.passives[p.id]||0)))));
+                CONFIG.upgrades.forEach(u => check(`buy-upg-${u.id}`, Math.floor(u.cost * Math.pow(1.5, (Game.data.upgrades[u.id]||0)))));
+            }
+        };
+
+        window.onload = () => Game.init();
+    </script>
+</body>
+</html>
