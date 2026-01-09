@@ -146,7 +146,7 @@ pre { color: var(--terminal-green); margin: 0; white-space: pre-wrap; font-famil
     background: #000;
     border: 4px solid #333;
     position: absolute; top: 20px; left: 30px;
-    transform-style: preserve-3d;
+    /*transform-style: preserve-3d; */
     transform: translateZ(50px);
 }
 .laptop-screen::before { /* Tapa trasera */
