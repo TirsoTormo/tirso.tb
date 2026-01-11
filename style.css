@@ -202,3 +202,35 @@ pre { color: var(--terminal-green); margin: 0; white-space: pre-wrap; font-famil
 .p-info h3 { margin: 0 0 5px 0; color: var(--terminal-green); font-size: 1.2rem; }
 .p-info p { margin: 0; font-size: 0.9rem; color: #888; }
 .p-tech { font-size: 0.7rem; color: #555; text-transform: uppercase; margin-top: 5px; }
+/* --- BOTONES SOCIALES PERFIL --- */
+.btn-social {
+    flex: 1;
+    min-width: 150px;
+    padding: 15px;
+    background: #000;
+    border: 1px solid #333;
+    color: #888;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--font-title); /* Fuente pixelada */
+    font-size: 0.9rem;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Efecto Hover GitHub (Blanco) */
+.btn-social.git:hover {
+    border-color: #fff;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* Efecto Hover Instagram (Rosa) */
+.btn-social.ig:hover {
+    border-color: #d62976;
+    color: #d62976;
+    box-shadow: 0 0 10px rgba(214, 41, 118, 0.4);
+}
